@@ -1,0 +1,22 @@
+.model small
+.data
+      Array       db   0ffh, 0ffh, 0ffh, 0ffh, 0ffh
+      Sum_lsb     db   0
+      Sum_msb     db   0
+.code
+      Mov ax,@data                        ; initialize data  segment
+      Mov ds,ax
+      Mov cx,5                                 ; initialize byte counter 
+      Mov si ,offset array               ; initialize memory pointer
+Up:
+      Mov al,[si]                              ;read byte ffrom memory
+      Add sum_lsb,al                      ;add with sum
+      Jnc next                                 ; if sum>8 bit
+      Inc sum_msb                       ;increment msb counter
+Next:
+       Inc si                                  ;  increment memory counter
+       Loop up                             ;decrement byte counter
+                                                  ;if byte counter = 0 then exit
+                                                  ; else read next number
+       Ends
+       End
